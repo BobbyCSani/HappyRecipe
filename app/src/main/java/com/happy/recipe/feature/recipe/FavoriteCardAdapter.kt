@@ -48,7 +48,7 @@ class FavoriteCardAdapter(
     fun submitData(listData: List<RecipeModel>){
         list.clear()
         list.addAll(listData)
-        notifyItemRangeChanged(0, list.size)
+        notifyDataSetChanged()
     }
 
 }

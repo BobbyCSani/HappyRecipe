@@ -3,6 +3,7 @@ package com.happy.recipe.feature.recipe
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -32,7 +33,12 @@ class RecipeDetailActivity: AppCompatActivity() {
             })
         }
     }
-
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            if (isTaskRoot) startActivity(Intent(this@RecipeDetailActivity, HomeActivity::class.java))
+            else finish()
+        }
+    }
     private val viewModel by viewModels<RecipeDetailViewModel>()
     private val recipeId by lazy {
         intent.data?.path?.split("-")?.last()?.toInt()
@@ -60,6 +66,10 @@ class RecipeDetailActivity: AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        backPressedCallback.handleOnBackPressed()
+    }
+
     private fun setupObserver(){
         viewModel.recipeDetailLiveData.observe(this){ data ->
             binding.swipeRefresh.isRefreshing = false
@@ -67,17 +77,17 @@ class RecipeDetailActivity: AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        if (isTaskRoot) startActivity(Intent(this, HomeActivity::class.java))
-        else super.onBackPressed()
-    }
-
     private fun setListener(data: RecipeDetailModel) = with(binding){
         swipeRefresh.setOnRefreshListener {
             viewModel.getRecipeDetail(recipeId)
         }
 
-        toolbar.setNavigationOnClickListener { onBackPressedDispatcher.onBackPressed() }
+        onBackPressedDispatcher.addCallback(
+            this@RecipeDetailActivity, // Lifecycle owner
+            backPressedCallback
+        )
+
+        toolbar.setNavigationOnClickListener { backPressedCallback.handleOnBackPressed() }
 
         btnShare.setOnClickListener {
             val text = buildString {
