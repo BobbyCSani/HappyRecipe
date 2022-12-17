@@ -7,13 +7,16 @@ import android.os.Parcelable
 import android.text.SpannableStringBuilder
 import android.text.method.LinkMovementMethod
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
 import androidx.annotation.StringRes
 import androidx.core.widget.doAfterTextChanged
 import com.google.android.material.textfield.TextInputEditText
 import com.happy.recipe.R
 import com.happy.recipe.utility.pagination.PageUtils
 import kotlinx.coroutines.*
+
 
 fun Int?.toOffset() = (this?.minus(1) ?: 0) * PageUtils.NETWORK_PAGE_SIZE
 
@@ -36,9 +39,16 @@ fun View.isVisible(visible: Boolean) {
  * and limit from spoonacular API only 1 request/s
  * action will invoked when user already input 3 characters or more
  */
-fun TextInputEditText.inputListener(scope: CoroutineScope, onKeywordEvent: (String) -> Unit) {
+fun TextInputEditText.inputListener(scope: CoroutineScope, onKeywordEvent: (String) -> Unit, searchAction: () -> Unit) {
     var debounceJob: Job? = null
     val delayTime = 1000L
+
+    setOnEditorActionListener { _, actionId, _ ->
+        return@setOnEditorActionListener if (actionId == EditorInfo.IME_ACTION_DONE) {
+            searchAction()
+            true
+        } else false
+    }
 
     this.doAfterTextChanged { editable ->
         debounceJob?.cancel()

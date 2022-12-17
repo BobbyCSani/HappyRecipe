@@ -36,9 +36,12 @@ class SearchActivity: AppCompatActivity() {
     }
 
     private fun setListener() {
-        binding.searchInput.inputListener(lifecycleScope) { query ->
-            viewModel.getSuggestion(query)
-        }
+        binding.searchInput.inputListener(lifecycleScope,
+            onKeywordEvent = { query ->
+                viewModel.getSuggestion(query)
+            }, searchAction = {
+                binding.btnSearch.performClick()
+            })
         binding.btnSearch.setOnClickListener {
             val queryEditable = binding.searchInput.text
             if (queryEditable.isNullOrEmpty().not()) {

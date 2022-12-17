@@ -32,6 +32,8 @@
                 android:paddingEnd="10dp"
                 android:hint="@string/search_recipe"
                 android:textStyle="italic"
+                android:imeOptions="actionDone"
+                android:inputType="text"
                 android:gravity="center_vertical"
                 android:background="@drawable/bg_search"
                 android:layout_weight="1"
