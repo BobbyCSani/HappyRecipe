@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.happy.recipe.uikit.UIKitFavoriteRecipe
+    android:id="@+id/favoriteCard"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="120dp"
+    android:padding="5dp"
+    android:elevation="3dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/bg_rounded_card"/>

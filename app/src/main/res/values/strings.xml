@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">HappyRecipe</string>
+    <string name="person_count">%1d Person(s)</string>
+    <string name="cooking_time">%1d Minute(s)</string>
+    <string name="favorite_recipes">Favorite Recipes</string>
+    <string name="favorite_recipes_will_appear_here">There is no favorite at this time, your favorite recipes will appear here.</string>
+    <string name="search_recipe">search repice...</string>
+    <string name="daily_inspiration">Daily Inspiration</string>
+    <string name="see_all">See All</string>
+    <string name="something_error">There is something error</string>
+    <string name="query_recipe_not_found">Sorry, can\'t find recipe for %1s, please try different keyword.</string>
+    <string name="ingredient">Ingredients</string>
+    <string name="instruction">Instruction</string>
+    <string name="instruction_detail_please_visit">For detail instruction, please visit %1s</string>
+    <string name="credit_text">%1s</string>
+    <string name="no_instruction">no instruction to display here</string>
+</resources>
