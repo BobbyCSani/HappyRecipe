@@ -122,6 +122,7 @@ class RecipeDetailActivity: AppCompatActivity() {
         ){
             WebViewActivity.start(this@RecipeDetailActivity, data.sourceUrl)
         }
+        data.instructions?.let { textInstruction -> instruction.text = HtmlCompat.fromHtml(textInstruction, HtmlCompat.FROM_HTML_MODE_COMPACT) }
         detailInstruction.setSpannedText(
             mainText = R.string.instruction_detail_please_visit,
             clickableText = data.creditsText
